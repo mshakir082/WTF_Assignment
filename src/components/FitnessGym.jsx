@@ -5,6 +5,7 @@ const FitnessGym = () => {
   return (
     <div className="fitness-experience">
         <img src='fitnessExer.png' />
+        <img src='footer.png'/>
     </div>
   )
 }

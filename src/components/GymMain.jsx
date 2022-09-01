@@ -13,14 +13,23 @@ const GymMain = () => {
       .then(res=>res.json())
       .then(el=>setNearestGym(el.data))
     },[]);
-    const handelChange=(e)=>{
-      setplacesGym(e.target.value);
+    const handelChange=(value)=>{
+      
+      setplacesGym(value)
     }
-    useEffect(()=>{
-      fetch(`https://devapi.wtfup.me/gym/places?city=${placesGym}`)
-      .then(res=>res.json())
-      .then(el=>console.log(el.data))
+     useEffect(()=>{
+      
+      if(placesGym=='noida'){
+        fetch(`https://devapi.wtfup.me/gym/nearestgym?lat=30.325488815850512&long=78.0042384802231&city=${placesGym}`)
+        .then(res=>res.json())
+        .then(el=>setNearestGym(el.data))
+      }else{
+        fetch(`https://devapi.wtfup.me/gym/nearestgym?lat=28.613939&long=77.209021&city=noida`)
+        .then(res=>res.json())
+        .then(el=>setNearestGym(el.data))
+      }
     },[placesGym]);
+  
   return (
     <div className="filter-box">
       <div className="filter-title">
@@ -47,11 +56,12 @@ const GymMain = () => {
         <div className="cities-selectDiv">
           <p>Cities</p>
           <select className="cities-select"
-               placeholder="Select Cities" onChange={handelChange}>
+               placeholder="Select Cities" onChange={(e)=>handelChange(e.target.value)}>
             <option  value="new delhi">New Delhi</option>
-            <option value="Noida">Noida</option>
             <option value="gaziabad">Gaziabad</option>
-            <option value="Delhi">Delhi</option>
+            <option value="greater noida">Greater Noida</option>
+            <option value="noida">Noida</option>
+            <option value="delhi">Delhi</option>
           </select>
         </div>
       </div>
